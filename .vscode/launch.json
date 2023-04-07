@@ -1,0 +1,72 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "run main (test)",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "dummy",
+                "--is-test",
+            ]
+        },
+        {
+            "name": "run main (matrix1)",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "data/matrix1.txt",
+                "--job-n",
+                "1"
+            ]
+        },
+        {
+            "name": "run main (matrix2)",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "data/matrix2.txt",
+                "--job-n",
+                "4"
+            ]
+        },
+        {
+            "name": "run main (matrix3)",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "data/matrix3.txt",
+                "--job-n",
+                "16"
+            ]
+        },
+        {
+            "name": "run main (matrix4)",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "data/matrix4.txt",
+                "--job-n",
+                "14"
+            ]
+        }
+    ]
+}
