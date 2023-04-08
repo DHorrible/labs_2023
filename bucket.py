@@ -5,7 +5,7 @@ from typing import Iterable, List, Set, Dict, Tuple
 from matrix import Matrix
 
 class Bucket(object):
-    def __init__(self, size: int, mtx: Matrix, nodes: Set[int]=[]) -> None:
+    def __init__(self, size: int, mtx: Matrix, nodes: Iterable[int]=[]) -> None:
         self._mtx: Matrix = mtx
         self._size: int = size
         self._nodes: Set[int] = set(nodes)

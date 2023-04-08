@@ -39,7 +39,7 @@
             "args": [
                 "data/matrix2.txt",
                 "--job-n",
-                "4"
+                "16"
             ]
         },
         {

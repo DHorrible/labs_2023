@@ -13,6 +13,7 @@ import argparse
 import math
 
 import numpy as np
+import logging
 
 def parse_args():
     parser = argparse.ArgumentParser(prog='lab1')
@@ -71,8 +72,13 @@ def main():
         test()
         return
 
+    print('Start read file...')
     data = DataHolder.by_stream(args.filename)
+    print('Reading file has been done')
+    
+    print('Start calculate bucket sizes combinations...')
     combs = optimaze_by_size(data.get_mtx().n, data.get_bucket_sizes())
+    print('Calculation bucket sizes has been done')
     
     p_bar = IncrementalBar('Calculate', max=len(combs))
 
@@ -80,14 +86,18 @@ def main():
     
     ret = []
     async_results = []
+    
+    print('Start iter combs...')
     for i, comb in enumerate(combs):
         def _iter(i):
             indexer = data.forward(comb)
+
+            # print(f'\n#{i} BEFORE - score: {indexer.score}')
             do_iter(data.get_mtx(), indexer)
+            # print(f'\n#{i} AFTER - score: {indexer.score}')
+
             ret.append(indexer)
-            print()
             p_bar.next()
-            # print(f'#{i} - score: {indexer.score}')
         # _iter()
         async_results.append(pool.apply_async(_iter, [i]))
 

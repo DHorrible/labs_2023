@@ -37,7 +37,7 @@ def do_iter(
             b_nodes = CapList(cap=bucket.len)
             for b_node in bucket.nodes:
                 if bucket.external_links(b_node) > 0:
-                   b_nodes.append(b_node) 
+                    b_nodes.append(b_node) 
 
             # Try optimaze
             r = create_bucket_mtx(mtx, bucket, bucket_indexer, externals)
@@ -52,9 +52,11 @@ def do_iter(
                 break
 
             b_nodes[max_idx[0]], externals[max_idx[1]] = new_b_node, old_b_node
+            
+            # print(f'BEFORE: buckket_indexer.score = {bucket_indexer.score}')
             bucket_indexer.swap_nodes(old_b_node, new_b_node)
-
-
+            # print(f'AFTER: buckket_indexer.score = {bucket_indexer.score}')
+            
 
 # def swap_np_mtx(
 #     mtx: np.ndarray,
@@ -75,15 +77,18 @@ def create_bucket_mtx(
     ret = np.ndarray((bucket.len, len(externals)))
     
     ext_deltas = [None] * len(externals)
+    ext_buckets = [None] * len(externals)
     for i in range(len(ext_deltas)):
         ext_node = externals[i]
         other_b_idx = bucket_indexer.n2b(ext_node)
-        ext_deltas[i] = bucket_indexer.at(other_b_idx).links_delta(ext_node)
-
+        # ext_deltas[i] = bucket_indexer.at(other_b_idx).links_delta(ext_node)
+        ext_deltas[i] = -bucket.links_delta(ext_node)
+        ext_buckets[i] = bucket_indexer.at(other_b_idx)
+        
     for b_node_idx, b_node in enumerate(bucket.nodes):
-        b_node_delta = bucket.links_delta(b_node)
         for ext_node_idx, ext_node in enumerate(externals):
-            ret[b_node_idx, ext_node_idx] = b_node_delta + ext_deltas[ext_node_idx]\
+            b_node_delta = -ext_buckets[i].links_delta(b_node)
+            ret[b_node_idx, ext_node_idx] = b_node_delta + ext_deltas[ext_node_idx] \
                 - 2 * mtx.mtx[b_node][ext_node]
 
     return ret
