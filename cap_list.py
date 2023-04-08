@@ -4,11 +4,17 @@ from typing import Iterator, Any
 
 
 class CapList(list):
-    def __init__(self, cap: int = 0):
+    def __init__(self, cap: int = 0, data: Iterator[Any]=None):
         self._size = 0
         self._cap = cap
-        if cap > 0:
+        self._data = None
+        if cap > 0 and data is None:
             self._data = [None] * self._cap
+        if data is not None:
+            self._data = list(data)
+            self._cap = len(self._data)
+        if self._data is None:
+            self._data = []
 
     def __len__(self) -> int:
         return self._size
@@ -32,3 +38,8 @@ class CapList(list):
         super().append(__object)
         self._size += 1
         self._cap = sys.getsizeof(self._data) // 8
+
+    def pop(self, __index: int = -1) -> Any:
+        if super().pop(__index) is not None:
+            self._cap -= 1
+            self._size -= 1

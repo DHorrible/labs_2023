@@ -98,7 +98,7 @@ def main():
 
             ret.append(indexer)
             p_bar.next()
-        # _iter()
+        # _iter(i)
         async_results.append(pool.apply_async(_iter, [i]))
 
     # wait all
