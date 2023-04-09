@@ -8,7 +8,7 @@ class CapList(list):
         self._size = 0
         self._cap = cap
         self._data = None
-        if cap > 0 and data is None:
+        if self._cap > 0 and data is None:
             self._data = [None] * self._cap
         if data is not None:
             self._data = list(data)
@@ -37,9 +37,15 @@ class CapList(list):
 
         super().append(__object)
         self._size += 1
-        self._cap = sys.getsizeof(self._data) // 8
+        self._cap = len(self._data)
 
     def pop(self, __index: int = -1) -> Any:
         if super().pop(__index) is not None:
             self._cap -= 1
             self._size -= 1
+
+    def remove(self, __value: Any) -> None:
+        super().remove(__value)
+        if self._cap != len(self._data):
+            self._size -= 1
+            self._cap -= 1 

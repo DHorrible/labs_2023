@@ -3,36 +3,44 @@
 from io import IOBase
 from typing import List, Set, Union, Tuple, Dict
 
+from multiprocess.shared_memory import SharedMemory
+
 import numpy as np
 
 class Matrix(object):
     def __init__(self, mtx: List[List[int]]):
-        self._mtx: List[List[int]] = mtx
         self._n: int = len(mtx)
-
-        self._degrees: List = [None] * self._n 
+        
+        self._mtx: List[List[int]] = np.ndarray((self._n, self._n), dtype=np.int32)
         self._cross_list: List[Set[int]] = [set() for _ in range(self._n)]
+        self._degrees: List = [None] * self._n 
 
-        for i, row in enumerate(self._mtx):
+        for i, row in enumerate(mtx):
             for j, x in enumerate(row):
+                self._mtx[i, j] = mtx[i][j]
                 if x > 0:
                     self._cross_list[i].add(j)
                     self._cross_list[j].add(i)
             self._degrees[i] = sum(row)
 
-        self._swap_index: Dict[int, int] = {x: x for x in range(self._n)} 
+        # self._swap_index: Dict[int, int] = {x: x for x in range(self._n)} 
 
     @property
     def n(self) -> int: return self._n
 
     @property
-    def mtx(self) -> List[List[int]]: return self._mtx
+    def mtx(self) -> np.ndarray: return self._mtx
 
     @property
     def cross_list(self) -> List[Set[int]]: return self._cross_list
  
     @property
     def degrees(self) -> List[int]: return self._degrees
+
+    def set_shared_mem(self, shm: SharedMemory) -> None:
+        mtx = np.ndarray((self._n, self._n), dtype=np.int32, buffer=shm.buf)
+        mtx[:] = self._mtx[:]
+        self._mtx = mtx
 
     def crosses(self, x: int) -> Set[int]: return self._cross_list[x]
 

@@ -44,7 +44,7 @@ class Bucket(object):
             if node != x and x not in self._nodes:
                 ret += self._mtx.mtx[node][x]
         return ret
-    
+
     def internal_links(self, node: int) -> int:
         ret = 0
         for x in self._mtx.crosses(node):
@@ -106,7 +106,10 @@ class BucketIndexer(object):
 
     def at(self, i: int) -> Bucket: return self._buckets[i]
 
-    def n2b(self, x: int) -> int: return self._n2b[x]
+    def n2b_idx(self, x: int) -> int: return self._n2b[x]
+
+    def n2b(self, x: int) -> Bucket: return self._buckets[self.n2b_idx(x)]
+
 
     def swap_nodes(self, x: int, y: int) -> None:
         x_b, y_b = self._buckets[self._n2b[x]], self._buckets[self._n2b[y]]

@@ -4,16 +4,16 @@ from bucket import BucketIndexer, Bucket
 from matrix import Matrix
 from iter import do_iter
 
-from progress.bar import IncrementalBar
+from alive_progress import alive_bar
 
-from multiprocessing.pool import ThreadPool 
-
-# import numpy as np
-import argparse
-import math
+from multiprocess.context import SpawnContext
+from multiprocess.shared_memory import SharedMemory
+from multiprocess.pool import Pool
+from multiprocess.queues import Queue
 
 import numpy as np
-import logging
+import argparse
+import math
 
 def parse_args():
     parser = argparse.ArgumentParser(prog='lab1')
@@ -80,35 +80,29 @@ def main():
     combs = optimaze_by_size(data.get_mtx().n, data.get_bucket_sizes())
     print('Calculation bucket sizes has been done')
     
-    p_bar = IncrementalBar('Calculate', max=len(combs))
+    total = len(combs)
 
-    pool = ThreadPool(processes=args.job_n)
+    mtx = data.get_mtx()
+
+    pool = Pool(processes=args.job_n)
+    results = []
     
-    ret = []
-    async_results = []
+    print(f'Start iter combs (tolal: {total})...')
     
-    print('Start iter combs...')
-    for i, comb in enumerate(combs):
-        def _iter(i):
+    with alive_bar(total) as p_bar:
+        def _impl(comb):
             indexer = data.forward(comb)
+            do_iter(mtx, indexer)
+            return indexer
+        
+        for a in pool.imap(_impl, combs):
+            p_bar()
+            results.append(a)
 
-            # print(f'\n#{i} BEFORE - score: {indexer.score}')
-            do_iter(data.get_mtx(), indexer)
-            # print(f'\n#{i} AFTER - score: {indexer.score}')
-
-            ret.append(indexer)
-            p_bar.next()
-        # _iter(i)
-        async_results.append(pool.apply_async(_iter, [i]))
-
-    # wait all
-    for res in async_results:
-        res.wait()
-
-    p_bar.finish()
-
-    ret.sort(key=lambda indexer: indexer.score)
-    print(f'Best result is "{ret[0].score}"')
+    print(f'Sort results...')
+    results.sort(key=lambda indexer: indexer.score)
+    
+    print(f'Best result is "{results[0].score}"')
 
 
 def test():
