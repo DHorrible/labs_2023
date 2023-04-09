@@ -2,7 +2,7 @@
 
 Установка зависимостей:
 
-`pip install -r pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 Запуск:
 
