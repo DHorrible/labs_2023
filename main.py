@@ -95,9 +95,9 @@ def main():
             do_iter(mtx, indexer)
             return indexer
         
-        for a in pool.imap(_impl, combs):
+        for indexer in pool.imap(_impl, combs):
             p_bar()
-            results.append(a)
+            results.append(indexer)
 
     print(f'Sort results...')
     results.sort(key=lambda indexer: indexer.score)
