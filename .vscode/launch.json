@@ -71,5 +71,28 @@
         },
 
         // lab2
+        {
+            "name": "run lab2 (test)",
+            "type": "python",
+            "request": "launch",
+            "program": "lab2/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "test",
+            ]
+        },
+        {
+            "name": "run lab2 (evo)",
+            "type": "python",
+            "request": "launch",
+            "program": "lab2/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "dummy_filname",
+                "--is-evo",
+            ]
+        },
     ]
 }
