@@ -4,11 +4,12 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        // lab1
         {
-            "name": "run main (test)",
+            "name": "run lab1 (test)",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "lab1/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
@@ -17,56 +18,58 @@
             ]
         },
         {
-            "name": "run main (matrix1)",
+            "name": "run lab1 (matrix1)",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "lab1/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
-                "data/matrix1.txt",
+                "lab1/data/matrix1.txt",
                 "--job-n",
                 "1"
             ]
         },
         {
-            "name": "run main (matrix2)",
+            "name": "run lab1 (matrix2)",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "lab1/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
-                "data/matrix2.txt",
+                "lab1/data/matrix2.txt",
                 "--job-n",
                 "12"
             ]
         },
         {
-            "name": "run main (matrix3)",
+            "name": "run lab1 (matrix3)",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "lab1/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
-                "data/matrix3.txt",
+                "lab1/data/matrix3.txt",
                 "--job-n",
                 "16"
             ]
         },
         {
-            "name": "run main (matrix4)",
+            "name": "run lab1 (matrix4)",
             "type": "python",
             "request": "launch",
-            "program": "main.py",
+            "program": "lab1/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
-                "data/matrix4.txt",
+                "lab1/data/matrix4.txt",
                 "--job-n",
                 "14"
             ]
-        }
+        },
+
+        // lab2
     ]
 }
