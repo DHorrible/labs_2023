@@ -76,6 +76,7 @@ class EvoAccommodation(object):
             tools.initRepeat, list, self._toolbox.individual_creator,
         )
 
+        # TODO 
         self._evalator = EvoAccommodationEvalator(self._mtx, None)
         self._toolbox.register('evaluate', self._evalator)
         self._toolbox.register('select', tools.selTournament, tournsize=3)
@@ -88,7 +89,8 @@ class EvoAccommodation(object):
                 manager.Pool(
                     processes=self.PROCESSES,
                     initializer=__pool_init,
-                    initargs=(None,),
+                    # TODO 
+                    initargs=(self._mtx, None),
                 ),
             )
 
