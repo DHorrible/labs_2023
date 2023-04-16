@@ -83,15 +83,17 @@
             ]
         },
         {
-            "name": "run lab2 (evo)",
+            "name": "run lab2 (evo matrix1)",
             "type": "python",
             "request": "launch",
             "program": "lab2/main.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "args": [
-                "dummy_filname",
+                "lab2/data/matrix1.txt",
                 "--is-evo",
+                "--job-n",
+                "2"
             ]
         },
     ]

@@ -18,7 +18,7 @@ class Matrix(object):
         self._mounted.sort()
         
         self._cross_list: List[Set[int]] = [set() for _ in range(self._n)]
-        self._degrees: List = [None] * self._n 
+        # self._degrees: List = [None] * self._n 
 
         for i, row in enumerate(mtx):
             for j, x in enumerate(row):
@@ -26,7 +26,7 @@ class Matrix(object):
                 if x > 0:
                     self._cross_list[i].add(j)
                     self._cross_list[j].add(i)
-            self._degrees[i] = np.sum(self._cross_list[i], where=lambda x: (self._mounted.searchsorted(x) is None))
+            # self._degrees[i] = np.sum(self._cross_list[i], where=lambda x: (self._mounted.searchsorted(x) is None))
 
     @property
     def n(self) -> int: return self._n
@@ -37,8 +37,8 @@ class Matrix(object):
     @property
     def cross_list(self) -> List[Set[int]]: return self._cross_list
 
-    @property
-    def degrees(self) -> List[int]: return self._degrees
+    # @property
+    # def degrees(self) -> List[int]: return self._degrees
 
     @property
     def dtype(self): return self._dtype
@@ -47,6 +47,7 @@ class Matrix(object):
     def mounted(self) -> np.ndarray: return self._mounted
 
     def crosses(self, x: int) -> Set[int]: return self._cross_list[x]
+
 
 class StreamMatrix(Matrix):
     def __init__(self, stream: IOBase):

@@ -20,9 +20,9 @@ def test():
 def evo_main(mtx: Matrix, manager: SyncManager) -> None:
     scheme = EvoAccommodation(mtx, manager)
     
-    best = scheme.do()
+    scheme.do()
 
-    return best
+    # return best
 
 def main(args, manager: SyncManager=None) -> None:
     if args.filename.lower() == 'test':
